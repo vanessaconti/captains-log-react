@@ -31,6 +31,26 @@ Your app should also include the following routes:
 
 - Displays a list of `log.title` that are clickable to take the user to `/logs/:index`.
 
+**IMPORTANT**
+
+Make sure your first logs are the ones shared in [captain's log API](https://github.com/joinpursuit/captains-log)
+
+Starting with: 
+
+```js
+[
+{
+  captainName: "Picard",
+  title: "Stars",
+  post: "Today I contemplated that there sure are a lot of stars in the sky",
+  mistakesWereMadeToday: true,
+  daysSinceLastCrisis: 100,
+}
+]
+```
+
+Or else your test(s) will not pass
+
 
 ### `/logs/:index`
 
