@@ -1,54 +1,51 @@
-describe("feature two", () => {
-  beforeEach(() => {
-    cy.visit("http://localhost:3000/logs/new");
+describe("Show Page", () => {
+  // the log these tests are based on
+  //   {
+  //   captainName: "Picard",
+  //   title: "Courage",
+  //   post: "Courage can be an emotion too.",
+  //   mistakesWereMadeToday: true,
+  //   daysSinceLastCrisis: 100,
+  // }
+  before(() => {
+    cy.visit("http://localhost:3000/logs/0");
   });
 
   it("shows the header text", () => {
     cy.contains("Captain's Log");
-    cy.contains("New");
+    cy.contains("Show");
   });
 
-  describe("the form", () => {
-    // pay attention the capitalization!
-    // cypress needs accuracy to find elements on the DOM\
+  it("can navigate to New page", () => {
+    cy.get("a").contains("New Log").click();
+    cy.url().should("eq", "http://localhost:3000/logs/new");
+  });
 
-    it("has a form with correct labels and fields", () => {
-      // for this label/input use htmlFor/id: 'name'
-      cy.get("label").contains("Captain's Name");
-      cy.get("#captainName").should("have.attr", "type", "text");
-
-      // for this label/input use htmlFor/id: 'title'
-      cy.get("label").contains("Title");
-      cy.get("#title").should("have.attr", "type", "text");
-
-      // for this label/input use htmlFor/id: 'post'
-      cy.get("label").contains("Post");
-      cy.get("form > textarea").should("have.attr", "id", "post");
-
-      // for this label/input use htmlFor/id: 'daysSinceLastCrisis'
-      cy.get("label").contains("Days Since Last Crisis");
-      cy.get("#daysSinceLastCrisis").should("have.attr", "type", "number");
-
-      // for this label/input use htmlFor/id: 'mistakesWereMadeToday'
-      cy.get("label").contains("Mistakes were made today");
-      cy.get("#mistakesWereMadeToday").should("have.attr", "type", "checkbox");
+  describe("log with its information", () => {
+    it("shows the 'title' with 'captainName'", () => {
+      // note that the "header" of this log's card is "Courage - By Picard"
+      // you may need to add " - By " between the two pieces of data
+      cy.contains("Courage - By Picard");
     });
 
-    it("has a 'Submit' input button", () => {
-      // this just means there needs to be an 'input' of type 'submit'
-      cy.get("form").submit();
-      cy.url().should("eq", "http://localhost:3000/logs");
+    it("shows the 'post'", () => {
+      cy.contains("Courage can be an emotion too.");
+    });
+
+    it("shows the 'daysSinceLastCrisis'", () => {
+      // the piece of data for this test is "100"
+      // everything before the 100 you're expected to add
+      cy.contains("Days since last crisis: 100");
     });
   });
 
-  it("can create a log", () => {
-    cy.get("#captainName").type("Mashu");
-    cy.get("#title").type("Testing Voyages");
-    cy.get("form > textarea").type(
-      "T'was a hard day of writing tests, but remain calm lets!"
-    );
-    cy.get("form").submit();
+  it("has a 'Back' link that takes us back to '/logs'", () => {
+    cy.get("a").contains("Back").click();
     cy.url().should("eq", "http://localhost:3000/logs");
-    cy.contains("Testing Voyages");
+  });
+
+  it("has an 'Edit' link that takes us back to '/logs/0/edit'", () => {
+    cy.get("a").contains("Edit").click();
+    cy.url().should("eq", "http://localhost:3000/logs/0/edit");
   });
 });
