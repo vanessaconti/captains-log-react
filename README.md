@@ -9,7 +9,7 @@
 - `cd` to the directory where you cloned it
 - `npm install` to install dependencies
 - `npm start` to start the react app on `localhost:3000`
-- `npm run cypress` (in a separate terminal tab) to open the cypress testing window
+- `npm test` (in a separate terminal tab) to open the cypress testing window
 
 > _Note_: Remember to `git add`, `git commit` and `git push` regularly
 
@@ -35,7 +35,7 @@ Your app should also include the following routes:
 
 Make sure your first logs are the ones shared in [captain's log API](https://github.com/joinpursuit/captains-log)
 
-Starting with: 
+Starting with:
 
 ```js
 module.exports = [
@@ -93,7 +93,6 @@ module.exports = [
 
 Or else your test(s) will not pass
 
-
 ### `/logs/:index`
 
 - Displays the details of each log
@@ -106,8 +105,8 @@ Or else your test(s) will not pass
   - <kbd>back</kbd>, takes the user back to the `/logs` view
   - <kbd>delete</kbd>, deletes the log and takes the user back to the `/logs` view
 
-
 ### `/logs/new`
+
 - Displays a form with the following inputs and appropriate labels:
   - captainName (text)
   - title (text)
@@ -116,9 +115,27 @@ Or else your test(s) will not pass
   - daysSinceLastCrisis (number)
   - submit (submit)
 
-### Bonuses
+### `/logs/edit`
+
 - Add an edit route
 - Add an edit form that is prefilled with the log to edit
+
+### Add Basic CSS Styling
+
+Add some style to improve the UX/UI of your app
+
+### App Styling Inspiration
+
+![index](./assets/index.png)
+
+![show](./assets/show.png)
+
+![new](./assets/new.png)
+
+![edit](./assets/edit.png)
+
+### Bonuses
+
 - Style the app
 - Use react-bootstrap
 - Use react-transition-group to transition between pages [Demo](https://reactrouter.com/web/example/animated-transitions)

@@ -1,14 +1,18 @@
-describe("New Page", () => {
+describe("Edit Page", () => {
   before(() => {
-    cy.visit("http://localhost:3000/logs/new");
+    cy.visit(`http://localhost:3000/logs/1/edit`);
   });
 
-  it("shows the header text", () => {
+  it("Shows the header text", () => {
     cy.contains("Captain's Log");
-    cy.contains("New");
+    cy.contains("Edit");
   });
 
-  describe("The form", () => {
+  it("Has a 'back' link that has a link back to '/logs'", () => {
+    cy.get('a[href*="/logs"]').contains("Back").contains("Back");
+  });
+
+  describe("Edit form", () => {
     // pay attention the capitalization!
     // cypress needs accuracy to find elements on the DOM\
 
@@ -34,21 +38,22 @@ describe("New Page", () => {
       cy.get("#mistakesWereMadeToday").should("have.attr", "type", "checkbox");
     });
 
-    it("can create a log", () => {
-      cy.get("#captainName").type("Mashu");
-      cy.get("#title").type("Testing Voyages");
-      cy.get("form > textarea").type(
-        "T'was a hard day of writing tests, but remain calm lets!"
-      );
-      it("can change the checkbox to checked'", () => {
-        cy.get("#mistakesWereMadeToday").check();
-      });
-      it("can change the checkbox to unchecked'", () => {
-        cy.get("#mistakesWereMadeToday").uncheck();
-      });
+    it("can change the checkbox'", () => {
+      cy.get("#mistakesWereMadeToday").check();
+    });
+    it("Can edit a log", () => {
+      cy.get("#captainName").clear().type("Karolin");
+      cy.get("#title").clear().type("Silver Rocket");
+      cy.get("form > textarea").type("!!!!!!");
       cy.get("form").submit();
-      cy.url().should("eq", "http://localhost:3000/logs");
-      cy.contains("Testing Voyages");
+      // confirm correct routing after submission
+      cy.url().should("eq", "http://localhost:3000/logs/1");
+      // pause for human confirmation
+      cy.wait(500);
+      // go back to index to see the edit as well
+      cy.visit("/logs");
+      // confirm update is on the index
+      cy.get("td").eq(4).contains("Karolin");
     });
   });
 });

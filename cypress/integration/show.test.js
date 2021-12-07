@@ -1,13 +1,9 @@
+// If tests are failing because Picard is no longer your first entry
+// restart your express server
+// in order to rest your data
+
 describe("Show Page", () => {
-  // the log these tests are based on
-  //   {
-  //   captainName: "Picard",
-  //   title: "Courage",
-  //   post: "Courage can be an emotion too.",
-  //   mistakesWereMadeToday: true,
-  //   daysSinceLastCrisis: 100,
-  // }
-  beforeEach(() => {
+  before(() => {
     cy.visit("http://localhost:3000/logs/0");
   });
 
@@ -16,13 +12,7 @@ describe("Show Page", () => {
     cy.contains("Show");
   });
 
-  it("can navigate to New page", () => {
-    cy.get("a").contains("New Log").click();
-    cy.url().should("eq", "http://localhost:3000/logs/new");
-  });
-
   describe("log with its information", () => {
-    
     it("shows the 'title' with 'captainName'", () => {
       // note that the "header" of this log's card is "Courage - By Picard"
       // you may need to add " - By " between the two pieces of data
@@ -41,12 +31,16 @@ describe("Show Page", () => {
   });
 
   it("has a 'Back' link that takes us back to '/logs'", () => {
-    cy.get("a").contains("Back").click();
-    cy.url().should("eq", "http://localhost:3000/logs");
+    cy.get("a").contains("Back");
   });
 
-  it("has an 'Edit' link that takes us back to '/logs/0/edit'", () => {
-    cy.get("a").contains("Edit").click();
-    cy.url().should("eq", "http://localhost:3000/logs/0/edit");
-  });
+  // it("has an 'Edit' link that takes us back to '/logs/0/edit'", () => {
+  //   cy.get("a").contains("Edit").click();
+  //   cy.url().should("eq", "http://localhost:3000/logs/0/edit");
+  // });
+
+  // it("can navigate to New page", () => {
+  //   cy.get("a").contains("New Log").click();
+  //   cy.url().should("eq", "http://localhost:3000/logs/new");
+  // });
 });
