@@ -17,6 +17,16 @@ Using the [Captain's Log API that you built](https://github.com/joinpursuit/capt
 
 Don't forget to keep your back-end API running during this build.
 
+### User Stories
+
+Use these user stories to build your app
+- A user sees a welcome page with a nav bar
+- The nav bar is visible on all pages and can navigate to an index of all logs and a form for a new log
+- A user can see a list of all the logs
+- A user can click on a specific log and see more details
+- A user can update a log using a form
+- A user can delete a log through a button on the show page
+
 ### Build the Following Components/Pages/Routes
 
 ### Nav Bar
@@ -150,5 +160,8 @@ Add some style to improve the UX/UI of your app
 
 - Use react-bootstrap
 - Use react-transition-group to transition between pages [Demo](https://reactrouter.com/web/example/animated-transitions)
-- add a 404 page
-- add functionality that when a user presses the delete button a confirmation appears first
+- Add a 404 page
+- Add functionality that when a user presses the delete button a confirmation appears first
+- Add sort functionality to allow sorting by captain name or by days since last crisis
+- Add filter functionality to see all logs, logs where mistakes were made, logs where mistakes were not made
+- Deploy this app online and add it to your portfolio
