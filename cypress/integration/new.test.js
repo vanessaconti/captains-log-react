@@ -1,6 +1,10 @@
+const URL = Cypress.env("URL");
+const API = Cypress.env("API");
+const CI_ENV = Cypress.env("ci");
+
 describe("New Page", () => {
   before(() => {
-    cy.visit("http://localhost:3000/logs/new");
+    cy.visit(`${URL}/logs/new`);
   });
 
   it("shows the header text", () => {
@@ -35,6 +39,11 @@ describe("New Page", () => {
     });
 
     it("can create a log", () => {
+      if (CI_ENV) {
+        cy.intercept("POST", `${API}/logs`, {
+          fixture: "newLog.json",
+        }).as("newLog");
+      }
       cy.get("#captainName").type("Mashu");
       cy.get("#title").type("Testing Voyages");
       cy.get("form > textarea").type(
@@ -47,8 +56,17 @@ describe("New Page", () => {
         cy.get("#mistakesWereMadeToday").uncheck();
       });
       cy.get("form").submit();
+      if (CI_ENV) {
+        cy.wait("@newLog");
+        console.warn(
+          "Note, you will NOT see this new log because we mocked the functionality"
+        );
+      } else {
+        it("Shows the new item on the index page", () => {
+          cy.contains("Mashu");
+        });
+      }
       cy.url().should("eq", "http://localhost:3000/logs");
-      cy.contains("Testing Voyages");
     });
   });
 });

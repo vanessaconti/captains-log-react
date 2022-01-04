@@ -1,6 +1,15 @@
+const URL = Cypress.env("URL");
+const API = Cypress.env("API");
+const CI_ENV = Cypress.env("ci");
+
+import interceptEdit from "../support/intercept/logs/edit.js";
+
 describe("Edit Page", () => {
   before(() => {
-    cy.visit(`http://localhost:3000/logs/1/edit`);
+    if (CI_ENV) {
+      interceptEdit();
+    }
+    cy.visit(`${URL}/logs/1/edit`);
   });
 
   it("Shows the header text", () => {
@@ -8,7 +17,7 @@ describe("Edit Page", () => {
     cy.contains("Edit");
   });
 
-  it("Has a 'back' link that has a link back to '/logs'", () => {
+  it("Has a 'Back' link that has a link back to '/logs'", () => {
     cy.get('a[href*="/logs"]').contains("Back").contains("Back");
   });
 
@@ -42,18 +51,32 @@ describe("Edit Page", () => {
       cy.get("#mistakesWereMadeToday").check();
     });
     it("Can edit a log", () => {
-      cy.get("#captainName").clear().type("Karolin");
-      cy.get("#title").clear().type("Silver Rocket");
-      cy.get("form > textarea").type("!!!!!!");
-      cy.get("form").submit();
-      // confirm correct routing after submission
-      cy.url().should("eq", "http://localhost:3000/logs/1");
-      // pause for human confirmation
-      cy.wait(500);
-      // go back to index to see the edit as well
-      cy.visit("/logs");
-      // confirm update is on the index
-      cy.get("td").eq(4).contains("Karolin");
+      if (CI_ENV) {
+        cy.intercept("PUT", `${API}/logs/1`, {
+          fixture: "editLog.json",
+        }).as("editLog");
+        cy.get("form").submit();
+        cy.wait("@editLog");
+        console.warn(
+          "Note, you will NOT see this new log because we mocked the functionality"
+        );
+        // go back to index to see the edit as well
+        cy.visit(`${URL}/logs`);
+      } else {
+        cy.get("#captainName").clear().type("Karolin");
+        cy.get("#title").clear().type("Silver Rocket");
+        cy.get("form > textarea").type("!!!!!!");
+        cy.get("form").submit();
+
+        // confirm correct routing after submission
+        cy.url().should("eq", "http://localhost:3000/logs/1");
+        // pause for human confirmation
+        cy.wait(500);
+        // go back to index to see the edit as well
+        cy.visit(`${URL}/logs`);
+        // confirm update is on the index
+        cy.get("td").eq(4).contains("Karolin");
+      }
     });
   });
 });

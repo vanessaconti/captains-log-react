@@ -1,17 +1,9 @@
 {
-  "baseUrl": "http://localhost:3000",
-  "numTestsKeptInMemory": 0,
-  "reporter": "junit",
-  "screenshotOnRunFailure": false,
-  "video": false,
-  "trashAssetsBeforeRuns": false,
-  "reporterOptions": {
-    "mochaFile": "reports/junit/junit-[hash].xml",
-    "testsuitesTitle": true,
-    "testCaseSwitchClassnameAndName": true
+  "cypress-watch-and-reload": {
+    "watch": "src/**/*.js"
   },
-  "component": {
-    "testFiles": "**/*.test.{js,ts,jsx,tsx}",
-    "componentFolder": "src"
+  "env": {
+    "URL": "http://localhost:3000",
+    "API": "http://localhost:9000"
   }
 }

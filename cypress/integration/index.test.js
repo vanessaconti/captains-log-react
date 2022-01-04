@@ -1,7 +1,16 @@
-const URL = "http://localhost:3000";
+import interceptIndex from "../support/intercept/logs/index.js";
+
+// From cypress.json env
+const URL = Cypress.env("URL");
+// Already set to true as default on circleci
+// importing this value through plugins/index.js
+const CI_ENV = Cypress.env("ci");
 
 describe("Index page", () => {
   before(() => {
+    if (CI_ENV) {
+      interceptIndex();
+    }
     cy.visit(`${URL}/logs`);
   });
 

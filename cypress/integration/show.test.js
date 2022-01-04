@@ -1,10 +1,16 @@
 // If tests are failing because Picard is no longer your first entry
 // restart your express server
 // in order to rest your data
+import interceptShow from "../support/intercept/logs/show.js";
+const URL = Cypress.env("URL");
+const CI_ENV = Cypress.env("ci");
 
 describe("Show Page", () => {
   before(() => {
-    cy.visit("http://localhost:3000/logs/0");
+    if (CI_ENV) {
+      interceptShow();
+    }
+    cy.visit(`${URL}/logs/0`);
   });
 
   it("shows the header text", () => {
@@ -31,16 +37,9 @@ describe("Show Page", () => {
   });
 
   it("has a 'Back' link that takes us back to '/logs'", () => {
-    cy.get("a").contains("Back");
+    cy.get("a").invoke("attr", "href").should("eq", "/logs");
   });
-
-  // it("has an 'Edit' link that takes us back to '/logs/0/edit'", () => {
-  //   cy.get("a").contains("Edit").click();
-  //   cy.url().should("eq", "http://localhost:3000/logs/0/edit");
-  // });
-
-  // it("can navigate to New page", () => {
-  //   cy.get("a").contains("New Log").click();
-  //   cy.url().should("eq", "http://localhost:3000/logs/new");
-  // });
+  it("has an 'Edit' link that takes us to '/logs/0/edit'", () => {
+    cy.get("a").eq(3).invoke("attr", "href").should("eq", "/logs/0/edit");
+  });
 });
