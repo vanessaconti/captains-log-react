@@ -17,7 +17,9 @@ Using the [Captain's Log API that you built](https://github.com/joinpursuit/capt
 
 Don't forget to keep your back-end API running during this build.
 
-#### Nav Bar
+### Build the Following Components/Pages/Routes
+
+### Nav Bar
 
 At the top of your app you should have a navigation bar.
 
@@ -27,7 +29,7 @@ Your app should also include the following routes:
 
 <hr />
 
-### `/logs`
+### INDEX: GET `/logs`
 
 - Displays a list of `log.title` that are clickable to take the user to `/logs/:index`.
 
@@ -93,7 +95,7 @@ module.exports = [
 
 Or else your test(s) will not pass
 
-### `/logs/:index`
+### SHOW: GET `/logs/:index`
 
 - Displays the details of each log
   - captainName
@@ -105,7 +107,7 @@ Or else your test(s) will not pass
   - <kbd>back</kbd>, takes the user back to the `/logs` view
   - <kbd>delete</kbd>, deletes the log and takes the user back to the `/logs` view
 
-### `/logs/new`
+### NEW:  GET `/logs/new`
 
 - Displays a form with the following inputs and appropriate labels:
   - captainName (text)
@@ -115,18 +117,18 @@ Or else your test(s) will not pass
   - daysSinceLastCrisis (number)
   - submit (submit)
 
-### Create
+### Create POST `/logs`
 - Your New form creates a new log
 
-### `/logs/edit`
+### Edit: GET `/logs/edit`
 
 - Add an edit route
 - Add an edit form that is prefilled with the log to edit
 
-### Update
+### Update: PUT `/logs/:index`
 - Your Update form updates a log
 
-### Delete
+### Delete: DELETE `/logs/:index`
 - From the show page, it is possible to delete a log
 
 
