@@ -9,13 +9,13 @@
 - `cd` to the directory where you cloned it
 - `npm install` to install dependencies
 - `npm start` to start the react app on `localhost:3000`
-- `npm test` (in a separate terminal tab) to open the cypress testing window
+- `npm test` (in a separate terminal tab) to open the cypress testing window (keep your react app runnign as well)
 
 > _Note_: Remember to `git add`, `git commit` and `git push` regularly
 
-Using the [Captain's Log API that you built](https://github.com/joinpursuit/captains-log), you are going to create a frontend-only app.\
+Using the [Captain's Log API that you built](https://github.com/joinpursuit/captains-log), you are going to create a frontend-only app.
 
-Don't forget to keep your back-end API running during this build/
+Don't forget to keep your back-end API running during this build.
 
 #### Nav Bar
 
@@ -115,10 +115,20 @@ Or else your test(s) will not pass
   - daysSinceLastCrisis (number)
   - submit (submit)
 
+### Create
+- Your New form creates a new log
+
 ### `/logs/edit`
 
 - Add an edit route
 - Add an edit form that is prefilled with the log to edit
+
+### Update
+- Your Update form updates a log
+
+### Delete
+- From the show page, it is possible to delete a log
+
 
 ### Add Basic CSS Styling
 
@@ -136,9 +146,7 @@ Add some style to improve the UX/UI of your app
 
 ### Bonuses
 
-- Style the app
 - Use react-bootstrap
 - Use react-transition-group to transition between pages [Demo](https://reactrouter.com/web/example/animated-transitions)
-- write your own tests for the edit route
 - add a 404 page
 - add functionality that when a user presses the delete button a confirmation appears first
